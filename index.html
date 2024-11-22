@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Resequencing video</title>
+<body style="background-color:#17202A  ; color: #FDFEFE">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1 {font-family: "Raleway", Arial, sans-serif}
+h1 {letter-spacing: 6px}
+.w3-row-padding img {margin-bottom: 12px}
+</style>
+</head>
+<body>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" style="padding:28px 16px">  
+  <h1 style="color:aqua; font-weight: bold;">      Regenerating Arbitrary Video Sequences with </h1>
+  <h1 style="color:aqua; font-weight: bold;">      Distillation Path-Finding </h1>
+  <h4>Thi-Ngoc-Hanh Le, Shang-Yi Yao, Chun-Te Wu, and Tong-Yee Lee, Senior Member, IEEE </h4>
+  <h2 class="w3-xlarge">CGVSL - National Cheng-Kung University</h2>
+
+  <div class="w3-padding-32"> 
+    <div class="w3-bar w3-border">
+      <a href="index.html" class="w3-bar-item w3-button w3-light-grey">Home</a> 
+      <a href="#id_demo_video" class="w3-bar-item w3-button">Demo video</a>
+      <a href="#id_comparison" class="w3-bar-item w3-button">Comparison</a>   
+      <a href="#id_Evaluation_result" class="w3-bar-item w3-button">Evaluation results</a>      
+      <a href="#id_results" class="w3-bar-item w3-button">More results</a>
+      <a href="./data/Ablation_study.mp4" target="_blank" class="w3-bar-item w3-button">Ablation Study</a>  
+	    <a href="./data/Failure_result.mp4" target="_blank" class="w3-bar-item w3-button">Failure results</a>
+      <a href="#id_bibtex" target="_blank" class="w3-bar-item w3-button">Cite this</a>
+      <a href="./TVCG_Video_Resequencing_accepted.pdf" target="_blank" class="w3-bar-item w3-button">Paper</a>
+      <a href="https://github.com/LeHanhcs/SDPF_VideoResequencing" target="_blank" class="w3-bar-item w3-button">Source code</a>
+    </div>
+   </div>
+</header>
+
+
+<table align='center'; width=1000px;> 		 	
+					 <tbody><tr>				    
+  					<td width="800px">  	
+              <center>
+                <video autoplay controls muted loop
+                    src="./data/teaser_site.mp4"	
+                    width="800px">
+                  </video>						
+                </center>              										
+              </td>
+          
+          </tr>
+          <tr>
+            <td width="680px">
+              <center><h1>Abstract</h1></center>
+              <hr> 
+                <p align='justify',style='font-size:20; font-weight: bold'>	If the video has long been mentioned as a widespread visualization form, 
+                  the animation sequence in the video is mentioned as storytelling for people. 
+                  Producing an animation requires intensive human labor from skilled professional artists to obtain plausible animation 
+                  in both content and motion direction, incredibly for animations with complex content, multiple moving objects, and dense movement. 
+                  This paper presents an interactive framework to generate new sequences according to the users' preference on the starting frame. 
+                  The critical contrast of our approach versus prior work and existing commercial applications is that novel sequences with 
+                  arbitrary starting frame are produced by our system with a consistent degree in both content and motion direction. 
+                  To achieve this effectively, we first learn the feature correlation on the frameset of the given video through a proposed network called RSFNet. 
+                  Then, we develop a novel path-finding algorithm, SDPF, which formulates the knowledge of motion directions of the source video to estimate 
+                  the smooth and plausible sequences. The extensive experiments show that our framework can produce new animations on the cartoon and natural scenes 
+                  and advance prior works and commercial applications to enable users to obtain more predictable results.
+                <hr>
+          <p align='justify';style='font-size:16.0pt; font-weight: bold'> Keywords -- animation, sequencing, RSFNet, distillation, SDPF
+              <br>	
+          </tr>
+               
+
+			  </tbody></table>
+        <table align='center'; width=1200px; style="background-color:rgb(46, 66, 66)">
+          <tbody>
+            <tr>
+              <td width = "1000px">                  
+                      <h2 class="title"><a id="id_bibtex">BibTeX</h2>
+                      <code>@ARTICLE{10018537,
+                        author={Le, Thi-Ngoc-Hanh and Yao, Sheng-Yi and Wu, Chun-Te and Lee, Tong-Yee}, <br>
+                        journal={IEEE Transactions on Visualization and Computer Graphics}, <br>
+                        title={Regenerating Arbitrary Video Sequences with Distillation Path-Finding},  <br>
+                        year={2023}, <br>
+                        volume={}, <br>
+                        number={}, <br>
+                        pages={1-14}, <br>
+                        doi={10.1109/TVCG.2023.3237739}}<br>                      
+                      }
+                  </code>
+              </td>                     
+            </tr>
+            <tr>
+              <td width = "1000px">
+                <h2 class="title">Grant</h2>
+                This work was supported in part by the National Science and Technology Council (under nos. 111-2221-E-006 -112 -MY3 and 110-2221-E-006-135-MY3), 
+                Republic of China (ROC), Taiwan. 
+              </td>
+            </tr>
+      </table>
+  
+          
+        
+        <table align='center'; width=1500px>
+            <tr>
+              <td width = "500px">
+              </td>
+              <td align="center" width = "500px">                
+                <h1><a id="id_demo_video">Demo video</a></h1>             
+              <hr>
+              </td>
+              <td width = "500px">
+              </td>              
+            </tr>
+          </table>
+
+          <table align='center'; width=1000px; style="color:burlywood">
+            <tr>	          			    	
+                <td width="1200px">
+                  <center> 
+                    
+                          <iframe width="1000" height="500"
+                    src="https://www.youtube.com/embed/IWZhudx1wPY?autoplay=0&mute=0">
+                    </iframe>										                         
+                          
+                    </center>    
+                </td>		                                  
+                 
+            </tr>
+            </table>
+
+        <!-- Comparisons -->
+        
+        <table align='center'; width=1500px>
+          <tbody>
+            <tr>
+              <td width = "500px">
+              </td>
+              <td align="center" width = "500px">                
+                <h1><a id="id_comparison">Comparisons</a></h1>
+              <hr>
+              </td>
+              <td width = "500px">
+              </td>              
+            </tr>
+          </table>
+          <table align='center'; width=1500px; style="color:burlywood">
+            <tbody>
+              <tr>
+                <td width = "100px">
+                </td>
+                <td align="center" width = "1300px">                
+                  <h4>River flow (the first row) and Chinese ink (the second row) are mentioned as the limitation in [14]. In both cases, there exists long linear motion segments.
+                    The flip-flop phenomenon occurs in River flow sequence in [14]'s result. With Chinese ink, [14] generate abnormal motion directions and enventually leads to unrealistic
+                    resultant video. Reversely, our system generates smooth and realistic motions in both cases.
+                  </h4>
+                <hr>
+                </td>
+                <td width = "100px">
+                </td>              
+              </tr>
+            </table>
+
+          <table style="color:burlywood">
+          <tr>
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/River.mp4"	
+                    width="500px">
+                  </video>
+                  
+                </center>  
+            </td>
+            
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/River_by22.mp4"	
+                    width="500px">
+                  </video>		
+                </center>  
+            </td>
+            
+            
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/River_by_ours.mp4"	
+                    width="500px">
+                  </video>		
+                </center>  
+            </td>
+          </tr>
+          <tr>
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/Chinese_Ink.mp4"	
+                    width="500px">
+                  </video>			<br>
+                  <h6>Input video </h6>
+                </center>  
+            </td>
+            
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/Chinese_Ink_by22.mp4"	
+                    width="500px">
+                  </video>			<br> 
+                  <h6> Manifold sequence [14] </h6>
+                </center>  
+            </td>
+            
+            
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/Chinese_Ink_by_ours.mp4"	
+                    width="500px">
+                  </video>			<br> 
+                 <h6> By ours </h6>
+                </center>  
+            </td>
+          </tr>
+         </table>
+         <hr>
+         
+
+         
+        <!--------------------------- Advantage ------------------------------>
+     
+        <table align='center'; width=1500px; style="color:burlywood">
+          <tbody>
+            <tr>
+              <td width = "100px">
+              </td>
+              <td align="center" width = "1300px">                
+                <h4>Our system can generate different sequences at arbitrary starting frames. Here, we demonstrate the results with starting at the first frame (i.e., frame 0),
+                    the middle frames (i.e., frame 156 and 214), and the last frame (i.e., frame 313).
+                </h4>
+              <hr>
+              </td>
+              <td width = "100px">
+              </td>              
+            </tr>
+          </table>
+          
+          
+          <table style="color:burlywood">
+          <tr>
+            <td width="375px">
+              <center>
+                <video controls
+                    src="./data/Daffy_Duck_input.mp4"	
+                    width="375px">
+                  </video> <br>
+                  <h6>Source sequence starting at frame 0 </h6>
+                </center>  
+            </td>
+            <td width="375px">
+              <center>
+                <video controls
+                    src="./data/F156_source.mp4"	
+                    width="375px">
+                  </video> <br>
+                  <h6>Source sequence starting at frame 156 </h6>
+                  
+                </center>  
+            </td>
+            
+            <td width="375px">
+              <center>
+                <video controls
+                    src="./data/F214_source.mp4"	
+                    width="375px">
+                  </video> <br>
+                  <h6>Source sequence starting at frame 214 </h6>		
+                </center>  
+                
+            </td>
+            
+            
+            <td width="375px">
+              <center>
+              <img src="./data/313.jpg" width="370px">
+              <br>
+              <h6>This is the final frame </h6>
+            </center>
+            </td>
+          </tr>
+          <tr>
+            <td width="375px">
+              <center>
+                <video controls
+                    src="./data/F0.mp4"	
+                    width="375px">
+                  </video> <br>
+                  <h6>Generated sequence starting at frame 0 </h6>		
+                  
+                </center>  
+            </td>
+            <td width="375px">
+              <center>
+                <video controls
+                    src="./data/F156.mp4"	
+                    width="375px">
+                  </video> <br>
+                  <h6>Generated sequence starting at frame 156 </h6>		
+                  
+                </center>  
+            </td>
+            
+            <td width="375px">
+              <center>
+                <video controls
+                    src="./data/F214.mp4"	
+                    width="375px">
+                  </video>		<br>
+                  <h6>Generated sequence starting at frame 214 </h6>		
+                </center>  
+            </td>
+            
+            
+            <td width="375px">
+              <center>
+                <video controls
+                    src="./data/F313.mp4"	
+                    width="375px">
+                  </video> <br>
+                  <h6>Generated sequence starting at the final frame 313 </h6>				
+                </center>  
+            </td>
+          </tr>
+         </table>
+         
+
+
+         <table align='center'; width=1500px; style="color:burlywood">
+          <tr>
+            <td width = "1000px">
+              
+            </td>
+          </tr>
+
+
+         <table align='center'; width=1500px; style="color:burlywood">
+          <tbody>
+            <tr>
+              <td width = "200px">
+              </td>
+              <td align="center" width = "1100px">                
+                <h4>Starting at the same frame (i.e., frame 0) and resulting different smooth sequences</h4>
+              <hr>
+              </td>
+              <td width = "200px">
+              </td>              
+            </tr>
+          </table>
+
+         <table align='center'; width=1500px; style="color:burlywood">
+          <tr>
+            <td width = "1000px">
+              
+            </td>
+          </tr>
+
+          <table style="color:burlywood">
+          <tr>
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/hippo_funk.mp4"	
+                    width="500px">
+                  </video>			<br>
+                  <h6> Sequence of Hippo funk </h6>
+                </center>  
+            </td>
+            
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/hippo_funk_result.mp4"	
+                    width="500px">
+                  </video>			<br> 
+                  <h6>Resultant Sequence 1 with starting frame 0 </h6>
+                </center>  
+            </td>
+            
+            <td width="300px">
+              <td width="500px">
+                <center>
+                  <video controls
+                      src="./data/hippo_funk_result_0_2.mp4"	
+                      width="500px">
+                    </video>			<br> 
+                    <h6>Resultant Sequence 2 with starting frame 0 </h6>
+                  </center>  
+              </td>
+            </td>
+          </tr>
+         </table>
+
+         <!-- ------------------------------------------------------------- Evaluation result -------------------------------------------->
+         <table align='center'; width=1500px>
+          <tbody>
+            <tr>
+              <td width = "500px">
+              </td>
+              <td align="center" width = "700px">                
+                <h1><a id="id_Evaluation_result">Evaluation Results</a></h1>                        
+              <hr>
+              </td>
+              <td width = "500px">
+              </td>              
+            </tr>
+            
+            
+          </table>
+          <table align='center'; width=1500px; style="color:burlywood">
+            <tbody>              
+              <tr>
+                <td width = "500px">
+                </td>
+                <td align="center" width = "700px">                                
+                  <h4>Here we show the results of 12 videos that we used in our evaluation. They are denoted as A to L in Figure 6 of our manuscript.</h4>     
+                
+                </td>
+                <td width = "500px">
+                </td>              
+              
+            </table>
+          <hr>
+          <table align='center'; width=1500px; style="color:burlywood">
+            <tr>
+              <td width = "350px">
+                <center>
+                  
+                    <img 	src="./data/A_Lovebird.jpg", width="350px">		<br>
+                  <h4>A - Love bird</h4>      
+                  </center>   
+              </td>
+              
+              <td width = "50px">
+
+              </td>
+              <td width="525px">
+                  <center>
+                    <video controls
+                      src="./data/Lovebird_1.mp4"	
+                      width="525px">
+                    </video>			<br>
+                    <h4>Input clip</h4>  
+                    </center>    
+                </td>	    
+                <td width = "50px">
+                </td>      			   
+
+              <td width="525px">
+                <center>
+                  <video controls
+                      src="./data/Lovebird_result_426.mp4"	
+                      width="525px">
+                    </video>			<br>
+                    <h4>Output sequence at frame 426</h4>
+                  </center>    
+              </td>	                                  
+               
+          </tr>
+          <!--                   B                        -->
+          <tr>
+            <td width = "350px">
+              <center>
+                
+                  <img 	src="./data/B_Daffy_duck.jpg", width="350px">		<br>
+                <h4>B - Daffy Duck</h4>      
+                </center>   
+            </td>
+            
+            <td width = "50px">
+
+            </td>
+            <td width="525px">
+                <center>
+                  <video controls
+                    src="./data/Daffy_Duck_input.mp4"	
+                    width="525px">
+                  </video>			<br>
+                  <h4>Input clip</h4>  
+                  </center>    
+              </td>	    
+              <td width = "50px">
+              </td>      			   
+
+            <td width="525px">
+              <center>
+                <video controls
+                    src="./data/Daffy_Duck_214.mp4"	
+                    width="525px">
+                  </video>			<br>
+                  <h4>Output sequence at frame 214</h4>
+                </center>    
+            </td>	                                
+        </tr>
+
+        <!--                   C                        -->
+        <tr>
+          <td width = "350px">
+            <center>
+              
+                <img 	src="./data/C_hippo_funk.jpg", width="350px">		<br>
+              <h4>C - Hippo funk</h4>      
+              </center>   
+          </td>
+          
+          <td width = "50px">
+
+          </td>
+          <td width="525px">
+              <center>
+                <video controls
+                  src="./data/hippo_funk.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Input clip</h4>  
+                </center>    
+            </td>	    
+            <td width = "50px">
+            </td>      			   
+
+          <td width="525px">
+            <center>
+              <video controls
+                  src="./data/hippo_funk_result.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Output sequence at frame 0</h4>
+              </center>    
+          </td>	                                
+      </tr>
+
+       <!--                   D                     -->
+       <tr>
+        <td width = "350px">
+          <center>
+            
+              <img 	src="./data/D_Frog_dance.jpg", width="350px">		<br>
+            <h4>D - Frog dance</h4>      
+            </center>   
+        </td>
+        
+        <td width = "50px">
+
+        </td>
+        <td width="525px">
+            <center>
+              <video controls
+                src="./data/Frog.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Input clip</h4>  
+              </center>    
+          </td>	    
+          <td width = "50px">
+          </td>      			   
+
+        <td width="525px">
+          <center>
+            <video controls
+                src="./data/Frog_result_102.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Output sequence at frame 102</h4>
+            </center>    
+        </td>	                                
+        </tr>
+
+        <!--                   E                    -->
+       <tr>
+        <td width = "350px">
+          <center>
+            
+              <img 	src="./data/E_Michigan.jpg", width="350px">		<br>
+            <h4>E - Michigan</h4>      
+            </center>   
+        </td>
+        
+        <td width = "50px">
+
+        </td>
+        <td width="525px">
+            <center>
+              <video controls
+                src="./data/Michigan_1.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Input clip</h4>  
+              </center>    
+          </td>	    
+          <td width = "50px">
+          </td>      			   
+
+        <td width="525px">
+          <center>
+            <video controls
+                src="./data/Michigan_1_result_10.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Output sequence at frame 37</h4>
+            </center>    
+        </td>	                                
+        </tr>
+
+        <!--                   F                    -->
+       <tr>
+        <td width = "350px">
+          <center>
+            
+              <img 	src="./data/F_Umbrella.jpg", width="350px">		<br>
+            <h4>F - Umbrella</h4>      
+            </center>   
+        </td>
+        
+        <td width = "50px">
+
+        </td>
+        <td width="525px">
+            <center>
+              <video controls
+                src="./data/Umbrelal_2.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Input clip</h4>  
+              </center>    
+          </td>	    
+          <td width = "50px">
+          </td>      			   
+
+        <td width="525px">
+          <center>
+            <video controls
+                src="./data/Umbrella_2_result.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Output sequence at frame 0</h4>
+            </center>    
+        </td>	                                
+        </tr>
+
+        <!--                   G                   -->
+       <tr>
+        <td width = "350px">
+          <center>
+            
+              <img 	src="./data/G_Little_doctor.jpg", width="350px">		<br>
+            <h4>G - Little doctor</h4>      
+            </center>   
+        </td>
+        
+        <td width = "50px">
+
+        </td>
+        <td width="525px">
+            <center>
+              <video controls
+                src="./data/Little_doctor_4.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Input clip</h4>  
+              </center>    
+          </td>	    
+          <td width = "50px">
+          </td>      			   
+
+        <td width="525px">
+          <center>
+            <video controls
+                src="./data/G_Little_doctor_F67.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Output sequence at frame 67</h4>
+            </center>    
+        </td>	                                
+        </tr>
+
+        <!--                   H                   -->
+       <tr>
+        <td width = "350px">
+          <center>
+            
+              <img 	src="./data/H_Baseketball.jpg", width="350px">		<br>
+            <h4>H - Basketball match</h4>      
+            </center>   
+        </td>
+        
+        <td width = "50px">
+
+        </td>
+        <td width="525px">
+            <center>
+              <video controls
+                src="./data/NBA.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Input clip</h4>  
+              </center>    
+          </td>	    
+          <td width = "50px">
+          </td>      			   
+
+        <td width="525px">
+          <center>
+            <video controls
+                src="./data/NBA_result.mp4"	
+                width="525px">
+              </video>			<br>
+              <h4>Output sequence at frame 0</h4>
+            </center>    
+        </td>	                                
+        </tr>
+
+        <!--                   I                   -->
+        <tr>
+          <td width = "350px">
+            <center>
+              
+                <img 	src="./data/I_River_flow.jpg", width="350px">		<br>
+              <h4>I - River flow</h4>      
+              </center>   
+          </td>
+          
+          <td width = "50px">
+  
+          </td>
+          <td width="525px">
+              <center>
+                <video controls
+                  src="./data/River.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Input clip</h4>  
+                </center>    
+            </td>	    
+            <td width = "50px">
+            </td>      			   
+  
+          <td width="525px">
+            <center>
+              <video controls
+                  src="./data/River_by_ours.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Output sequence at frame 0</h4>
+              </center>    
+          </td>	                                
+          </tr>
+
+          <!--                   I                   -->
+        <tr>
+          <td width = "350px">
+            <center>
+              
+                <img 	src="./data/HarryPorter_start.jpg", width="350px">		<br>
+              <h4>J - Harry Porter</h4>      
+              </center>   
+          </td>
+          
+          <td width = "50px">
+  
+          </td>
+          <td width="525px">
+              <center>
+                <video controls
+                  src="./data/HarryPorter.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Input clip</h4>  
+                </center>    
+            </td>	    
+            <td width = "50px">
+            </td>      			   
+  
+          <td width="525px">
+            <center>
+              <video controls
+                  src="./data/HarryPorter_result.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Output sequence at frame 0</h4>
+              </center>    
+          </td>	                                
+          </tr>
+
+          
+          <!--                   K                  -->
+        <tr>
+          <td width = "350px">
+            <center>
+              
+                <img 	src="./data/K_Chinese_ink.jpg", width="350px">		<br>
+              <h4>K - Chinese ink</h4>      
+              </center>   
+          </td>
+          
+          <td width = "50px">
+  
+          </td>
+          <td width="525px">
+              <center>
+                <video controls
+                  src="./data/Chinese_Ink.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Input clip</h4>  
+                </center>    
+            </td>	    
+            <td width = "50px">
+            </td>      			   
+  
+          <td width="525px">
+            <center>
+              <video controls
+                  src="./data/Chinese_Ink_by_ours.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Output sequence at frame 0</h4>
+              </center>    
+          </td>	                                
+          </tr>
+  
+            <!--                   L                  -->
+        <tr>
+          <td width = "350px">
+            <center>
+              
+                <img 	src="./data/L_movie_scene.jpg", width="350px">		<br>
+              <h4>L - Movie scene</h4>      
+              </center>   
+          </td>
+          
+          <td width = "50px">
+  
+          </td>
+          <td width="525px">
+              <center>
+                <video controls
+                  src="./data/L_input.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Input clip</h4>  
+                </center>    
+            </td>	    
+            <td width = "50px">
+            </td>      			   
+  
+          <td width="525px">
+            <center>
+              <video controls
+                  src="./data/L_result_F306.mp4"	
+                  width="525px">
+                </video>			<br>
+                <h4>Output sequence at frame 306</h4>
+              </center>    
+          </td>	                                
+          </tr> 
+          </table>
+          <hr>
+
+        <!-- ------------------------------------------------------------- More result -------------------------------------------->
+         <table align='center'; width=1500px>
+          <tbody>
+            <tr>
+              <td width = "400px">
+              </td>
+              <td align="center" width = "600px">                
+                <h1><a id="id_results">More Results</a></h1>             
+              <hr>
+              </td>
+              <td width = "400px">
+              </td>              
+            </tr>
+          </table>
+
+          <table align='center'; width=1500px; style="color:burlywood">           
+          <tr>
+            <td width = "500px">
+              <center>
+                <video controls
+                    src="./data/Dance_couple.mp4"	
+                    width="500px">
+                  </video>			<br> 
+                  <h6>Input sequence </h6>
+                        
+                </center>   
+            </td>
+            <td width = "50px">
+
+            </td>
+            <td width="400px">
+                <center>
+                  <img 	src="./data/Dance_couple_F48.jpg", width="400px">		<br>
+                  <h6>Starting frame 48 (i.e., final frame) </h6>
+                  </center>    
+              </td>	    
+              <td width = "50px">
+              </td>      			   
+
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/Dance_couple_result.mp4"	
+                    width="500px">
+                  </video>			<br> 
+                  <h6>Output sequence at frame 48   </h6>
+                </center>    
+            </td>	                                  
+             
+          </tr>    
+          
+          
+          
+        <tr>
+          <td width = "500px">
+            <center>
+              <video controls
+                  src="./data/girls_gen.mp4"	
+                  width="500px">
+                </video>			<br> 
+                <h6>Input sequence</h6>
+                      
+              </center>   
+          </td>
+          <td width = "50px">
+  
+          </td>
+          <td width="400px">
+              <center>
+                <img 	src="./data/girl_gen_start.jpg", width="400px">		<br><br>
+                <h6>Starting frame 100 </h6>
+                </center>    
+            </td>	    
+            <td width = "50px">
+            </td>      			   
+  
+          <td width="500px">
+            <center>
+              <video controls
+                  src="./data/girls_gen_result_100.mp4"	
+                  width="500px">
+                </video>			<br> 
+                <h6>Output sequence at frame 100</h6>
+              </center>    
+          </td>	                                  
+  
+      </tr>
+      <tr>
+        <td width = "500px">
+          <center>
+            <video controls
+                src="./data/Micky_3.mp4"	
+                width="500px">
+              </video>			<br> 
+              <h6>Input sequence</h6>
+                    
+            </center>   
+        </td>
+        <td width = "50px">
+
+        </td>
+        <td width="400px">
+            <center>
+              <img 	src="./data/Micky_3_F126.jpg", width="400px">		<br><br>
+              <h6>Starting frame 126</h6>
+              </center>    
+          </td>	    
+          <td width = "50px">
+          </td>      			   
+
+        <td width="500px">
+          <center>
+            <video controls
+                src="./data/Micky_3_result_F116.mp4"	
+                width="500px">
+              </video>			<br> 
+              <h6>Output sequence at frame 116</h6>>
+            </center>    
+        </td>	                                  
+        </tr>
+        <tr>
+          <td width = "500px">
+            <center>
+              <video controls
+                  src="./data/Micky_4.mp4"	
+                  width="500px">
+                </video>			<br> 
+                <h6>Input sequence</h6>
+                      
+              </center>   
+          </td>
+          <td width = "50px">
+  
+          </td>
+          <td width="400px">
+              <center>
+                <img 	src="./data/Micky_4_F79.jpg", width="400px">		<br><br>
+                <h6>Starting frame 79</h6>
+                </center>    
+            </td>	    
+            <td width = "50px">
+            </td>      			   
+  
+          <td width="500px">
+            <center>
+              <video controls
+                  src="./data/Micky_4_result_F79.mp4"	
+                  width="500px">
+                </video>			<br> 
+                <h6>Output sequence at frame 79</h6>
+              </center>    
+          </td>	                                  
+          </tr>
+          <tr>
+            <td width = "500px">
+              <center>
+                <video controls
+                    src="./data/Micky_5.mp4"	
+                    width="500px">
+                  </video>			<br> 
+                  <h6>Input sequence</h6>
+                        
+                </center>   
+            </td>
+            <td width = "50px">
+    
+            </td>
+            <td width="400px">
+                <center>
+                  <img 	src="./data/Micky_5_F97.jpg", width="400px">		<br><br>
+                  <h6>Starting frame 97</h6>
+                  </center>    
+              </td>	    
+              <td width = "50px">
+              </td>      			   
+    
+            <td width="500px">
+              <center>
+                <video controls
+                    src="./data/Micky_5_result_F97.mp4"	
+                    width="500px">
+                  </video>			<br> 
+                  <h6>Output sequence at frame 97</h6>
+                </center>    
+            </td>	                                  
+            </tr>
+
+            <tr>
+              <td width = "500px">
+                <center>
+                  <video controls
+                      src="./data/Buffalo.mp4"	
+                      width="500px">
+                    </video>			<br>
+                    Buffalo input sequence
+                          
+                  </center>   
+              </td>
+              <td width = "50px">
+  
+              </td>
+              <td width="400px">
+                  <center>
+                    <img 	src="./data/Buffalo_start.jpg", width="400px">		<br><br>
+                    Starting frame 0
+                    </center>    
+                </td>	    
+                <td width = "50px">
+                </td>      			   
+  
+              <td width="500px">
+                <center>
+                  <video controls
+                      src="./data/Buffalo_result.mp4"
+                      width="500px">
+                    </video>			<br> 
+                    Buffalo output sequence         			
+                  </center>    
+              </td>	                                  
+               
+            </tr>  
+  
+          </tr>
+          
+      
+    </table>
+          <hr>     
+          <hr>
+
+<footer> 
+  <center>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+  </center>
+  
+</footer>
+
+</body>
+</html>
